@@ -24,7 +24,7 @@ export const Hero = () => {
                             <Button variant="secondary" size="sm">
                                 Ver modelos
                             </Button>
-                            <Button>
+                            <Button variant="primary" size="md">
                                 Comprar
                             </Button>
                         </div>
