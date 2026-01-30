@@ -5,6 +5,8 @@ import TenisColorido from "@/assets/images/galeria-tenis-colorido.jpg";
 import TenisPreto from "@/assets/images/galeria-tenis-branco-e-preto.jpg";
 import TenisCinza from "@/assets/images/galeria-tenis-cinza.jpg";
 import styles from "./Gallery.module.css";
+import { Overlay } from "../Overlay";
+import { Button } from "../Button";
 
 export const Gallery = () => {
     return (
@@ -19,6 +21,15 @@ export const Gallery = () => {
                         src={Homem}
                         alt="Modelo masculino Krypton One"
                     />
+
+                    <Overlay
+                        title="Kripton One"
+                        subtitle="Estilo urbano com atitude"
+                        className="inset-0 justify-center"
+                    >
+                        <Button variant="secondary">Feminino</Button>
+                        <Button variant="secondary">Masculino</Button>
+                    </Overlay>
                 </div>
 
                 {/* Imagem do tenis preto e branco */}
