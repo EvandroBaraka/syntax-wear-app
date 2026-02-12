@@ -26,18 +26,17 @@
     --font-display: "Ubuntu", sans-serif;
 }
 
-
 @font-face {
-    font-family: 'Ubuntu';
-    src: url('@/assets/fonts/ubuntu-medium-500.woff2') format('woff2');
+    font-family: "Ubuntu";
+    src: url("@/assets/fonts/ubuntu-medium-500.woff2") format("woff2");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Ubuntu';
-    src: url('@/assets/fonts/ubuntu-regular-400.woff2') format('woff2');
+    font-family: "Ubuntu";
+    src: url("@/assets/fonts/ubuntu-regular-400.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -52,6 +51,7 @@
 body {
     font-family: var(--font-display);
     color: #fff;
+    background-color: var(--color-surface);
 }
 
 /* Esconde scrollbar no Chrome, Safari e Edge */
