@@ -11,10 +11,15 @@ export const ShoppingCart = () => {
     return (
         <>
             <button
-                className="cursor-pointer"
+                className="relative cursor-pointer"
                 onClick={() => setCartIsOpen(!cartIsOpen)}
             >
                 <img src={IconCart} alt="Icone carrinho de compras" />
+                {cart.length > 0 && (
+                    <span className="absolute -top-3 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {cart.length}
+                    </span>
+                )}
             </button>
 
             {/* Overlay escurecido quando o carrinho estiver aberto */}

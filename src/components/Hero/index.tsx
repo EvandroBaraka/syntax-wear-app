@@ -1,6 +1,7 @@
 import Banner from "@/assets/images/banner.jpg";
 import { Button } from "../Button";
 import { Overlay } from "../Overlay";
+import { Link } from "@tanstack/react-router";
 
 export const Hero = () => {
     return (
@@ -19,7 +20,9 @@ export const Hero = () => {
                     subtitle="Transforme qualquer passo em presença"
                     className="bottom-0 px-6 md:px-24 pb-24 justify-end md:items-end "
                 >
-                    <Button variant="secondary">Ver Modelos</Button>
+                    <Link to="/products">
+                        <Button variant="secondary">Ver Modelos</Button>
+                    </Link>
                     <Button variant="primary">Comprar</Button>
                 </Overlay>
             </section>
