@@ -4,6 +4,7 @@ import IconAbout from "@/assets/images/icon-about.png";
 import { Link } from "@tanstack/react-router";
 import { ShoppingCart } from "../ShoppingCart";
 import { MenuMobile } from "../MenuMobile";
+import { useState, useEffect } from "react";
 
 export interface NavLink {
     name: string;
@@ -17,10 +18,32 @@ const navLinks: NavLink[] = [
 ];
 
 export const Header = () => {
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     return (
         <div className="relative">
-            <header className="fixed top-5 left-0 right-0 z-10 mx-10 text-[#333333]">
-                <div className="bg-white max-w-330 mx-auto flex justify-between items-center py-3 px-7 rounded-2xl mt-5">
+            <header className={`fixed left-0 right-0 z-10 mx-auto text-[#333333] w-full transition-all duration-200 ${isScrolled ? "top-0" : "top-5"}`}>
+                <div
+                    className={`bg-white max-w-330 mx-auto flex justify-between items-center py-3 px-7 rounded-2xl transition-all duration-200 ${
+                        isScrolled ? "shadow-md mt-0" : "mt-5"
+                    }`}
+                >
                     <Link to="/">
                         <img
                             src={Logo}
