@@ -49,10 +49,10 @@ export const CEPForm = () => {
                         type="text"
                         inputMode="numeric"
                         placeholder="Digite seu CEP"
-                        className={`border border-[#c0c0c0] rounded-md p-3 ${errors?.cep ? "border-red-500" : ""}`}
+                        className={`border border-border rounded-md p-3 ${errors?.cep ? "border-error" : ""}`}
                     />
                     {errors?.cep && (
-                        <span className="text-red-600 text-sm mt-1">
+                        <span className="text-error text-sm mt-1">
                             {String(errors.cep.message)}
                         </span>
                     )}
@@ -69,7 +69,7 @@ export const CEPForm = () => {
 
             {addressError && (
                 <div className="mt-4">
-                <p className="text-red-600 text-sm">{addressError}</p>
+                <p className="text-error text-sm">{addressError}</p>
                 </div>
             )}
 
