@@ -5,6 +5,9 @@ import { Gallery } from "../../components/Gallery";
 
 export const Route = createFileRoute("/_app/")({
     component: RouterComponent,
+    head: () => ({
+        meta: [{ title: "Início - SyntaxWear" }],
+    }),
 });
 
 function RouterComponent() {
