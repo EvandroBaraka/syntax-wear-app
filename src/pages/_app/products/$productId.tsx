@@ -56,20 +56,22 @@ function RouteComponent() {
 
     return (
         <section className="container mb-10 pt-44 md:pt-54 pb-10 md:px-10">
-            <nav className="text-black text-sm mb-15 ml-5">
+            <nav className="text-black text-sm mb-15 ml-15">
                 <Link to="/">Home</Link> / <Link to="/products">Produtos</Link>{" "}
                 / <span className="font-semibold">{filteredProduct?.name}</span>
             </nav>
 
-            <div className="flex justify-center gap-10">
-                <img
-                    src={filteredProduct?.image}
-                    alt={filteredProduct?.name}
-                    className="w-125 bg-white rounded-2xl"
-                />
+            <div className="flex flex-col md:flex-row justify-center items-center gap-10">
+                <div className="flex-1 max-w-125 w-full">
+                    <img
+                        src={filteredProduct?.image}
+                        alt={filteredProduct?.name}
+                        className="w-full h-auto bg-white rounded-2xl"
+                    />
+                </div>
 
-                <div className="text-black">
-                    <h1 className="text-4xl font-bold mb-1">
+                <div className="flex-1 w-full max-w-125 text-black">
+                    <h1 className="text-3xl md:text-4xl font-bold mb-1">
                         {filteredProduct?.name}
                     </h1>
 
@@ -101,7 +103,7 @@ function RouteComponent() {
                         {filteredProduct?.description}
                     </p>
 
-                    <div className="mb-6">
+                    <div className="mb-7 xs:mb-6">
                         <p className="text-sm">Calcular o prazo de entrega</p>
 
                         <CEPForm />

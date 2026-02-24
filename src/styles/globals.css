@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @theme {
+    --breakpoint-xs: 450px;
+
     --color-background: hsl(0, 0%, 100%);
     --color-surface: hsl(0, 0%, 96%);
     --color-surface-alt: hsl(0, 0%, 93%);

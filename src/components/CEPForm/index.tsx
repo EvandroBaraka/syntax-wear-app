@@ -41,7 +41,7 @@ export const CEPForm = () => {
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 noValidate
-                className="flex gap-3"
+                className="flex flex-col xs:flex-row gap-3"
             >
                 <div className="flex flex-col flex-1">
                     <input
