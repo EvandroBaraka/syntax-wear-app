@@ -1,35 +1,26 @@
-import IconCart from "@/assets/images/icon-cart.png";
-import { useContext, useState } from "react";
-import { formatCurrency } from "../../utils/format-currency";
+import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
+import { formatCurrency } from "../../utils/format-currency";
 
-export const ShoppingCart = () => {
-    const [cartIsOpen, setCartIsOpen] = useState<boolean>(false);
+interface CartDrawerProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
     const { cart, removeFromCart, incrementInCart, decrementInCart } =
         useContext(CartContext);
 
     return (
         <>
-            <button
-                className="relative cursor-pointer"
-                onClick={() => setCartIsOpen(!cartIsOpen)}
-            >
-                <img src={IconCart} alt="Icone carrinho de compras" />
-                {cart.length > 0 && (
-                    <span className="absolute -top-3 -right-2 bg-error text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                        {cart.length}
-                    </span>
-                )}
-            </button>
-
             {/* Overlay escurecido quando o carrinho estiver aberto */}
             <div
-                className={`${cartIsOpen ? "visible bg-black/70" : "bg-transparent invisible"} fixed top-0 bottom-0 left-0 right-0 transition-all duration-500 ease-in-out`}
-                onClick={() => setCartIsOpen(false)}
+                className={`${isOpen ? "visible bg-black/70" : "bg-transparent invisible"} z-50 fixed top-0 bottom-0 left-0 right-0 transition-all duration-600 ease-in-out`}
+                onClick={onClose}
             >
                 {/* Carrinho de compras */}
                 <div
-                    className={`${cartIsOpen ? "translate-x-0" : "translate-x-full"} absolute top-0 bottom-0 right-0 bg-white pt-6 transition-all duration-500 ease-in-out w-75 md:w-106`}
+                    className={`${isOpen ? "translate-x-0" : "translate-x-full"} absolute top-0 bottom-0 right-0 bg-white text-black pt-6 transition-all duration-500 ease-in-out w-75 md:w-106`}
                     onClick={(e) => e.stopPropagation()}
                 >
                     <header className="flex items-center justify-between px-5">
@@ -38,7 +29,7 @@ export const ShoppingCart = () => {
                         </p>
                         <button
                             className="text-xl cursor-pointer"
-                            onClick={() => setCartIsOpen(false)}
+                            onClick={onClose}
                         >
                             X
                         </button>
@@ -82,18 +73,18 @@ export const ShoppingCart = () => {
                                         <div className="border flex gap-6 py-1 px-3">
                                             <button
                                                 className="cursor-pointer"
-                                                onClick={() => decrementInCart(
-                                                    product,
-                                                )}
+                                                onClick={() =>
+                                                    decrementInCart(product)
+                                                }
                                             >
                                                 -
                                             </button>
                                             <p>{product.quantity}</p>
                                             <button
                                                 className="cursor-pointer"
-                                                onClick={() => incrementInCart(
-                                                    product,
-                                                )}
+                                                onClick={() =>
+                                                    incrementInCart(product)
+                                                }
                                             >
                                                 +
                                             </button>

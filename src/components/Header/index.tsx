@@ -1,9 +1,10 @@
 import Logo from "@/assets/images/logo.png";
 import IconUser from "@/assets/images/icon-user.png";
 import { Link } from "@tanstack/react-router";
-import { ShoppingCart } from "../ShoppingCart";
 import { MenuMobile } from "../MenuMobile";
 import { useState, useEffect } from "react";
+import { CartButton } from "../CartButton";
+import { CartDrawer } from "../CartDrawer";
 
 export interface NavLink {
     name: string;
@@ -18,6 +19,7 @@ const navLinks: NavLink[] = [
 
 export const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [cartIsOpen, setCartIsOpen] = useState<boolean>(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -37,7 +39,9 @@ export const Header = () => {
 
     return (
         <div className="relative">
-            <header className={`fixed left-0 right-0 z-10 mx-10 text-[#333333] transition-all duration-50 ${isScrolled ? "top-0" : "top-5"}`}>
+            <header
+                className={`fixed left-0 right-0 z-10 mx-10 text-[#333333] transition-all duration-50 ${isScrolled ? "top-0" : "top-5"}`}
+            >
                 <div
                     className={`bg-white max-w-330 mx-auto flex justify-between items-center py-3 px-7 rounded-2xl transition-all duration-50 ${
                         isScrolled ? "shadow-md mt-0" : "mt-5"
@@ -70,7 +74,7 @@ export const Header = () => {
                                 <Link to="/about">Sobre</Link>
                             </li>
                             <li className="lg:hidden">
-                                <MenuMobile navLink={navLinks}/>
+                                <MenuMobile navLink={navLinks} />
                             </li>
                             <li className="hidden lg:block">
                                 <Link to="/sign-in">
@@ -81,12 +85,20 @@ export const Header = () => {
                                 </Link>
                             </li>
                             <li>
-                                <ShoppingCart />
+                                {/* <ShoppingCart /> */}
+                                <CartButton
+                                    onClick={() => setCartIsOpen(true)}
+                                />
                             </li>
                         </ul>
                     </nav>
                 </div>
             </header>
+
+            <CartDrawer
+                isOpen={cartIsOpen}
+                onClose={() => setCartIsOpen(false)}
+            />
         </div>
     );
 };

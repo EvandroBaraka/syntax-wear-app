@@ -23,7 +23,7 @@ export const MenuMobile = ({ navLink }: MenuMobileProps) => {
 
             {/* Overlay escurecido quando o carrinho estiver aberto */}
             <div
-                className={`${menuIsOpen ? "visible bg-black/70" : "bg-transparent invisible"} fixed top-0 bottom-0 left-0 right-0 transition-all duration-500 ease-in-out z-30`}
+                className={`${menuIsOpen ? "visible bg-black/70" : "bg-transparent invisible"} fixed top-0 bottom-0 left-0 right-0 transition-all duration-600 ease-in-out z-30`}
                 onClick={() => setMenuIsOpen(false)}
             >
                 {/* Carrinho de compras */}
