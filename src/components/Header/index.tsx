@@ -12,9 +12,9 @@ export interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-    { name: "Masculino", href: "/products" },
-    { name: "Feminino", href: "/products" },
-    { name: "Outlet", href: "/products" },
+    { name: "Masculino", href: "/products/category/masculino" },
+    { name: "Feminino", href: "/products/category/feminino" },
+    { name: "Outlet", href: "/products/category/outlet" },
 ];
 
 export const Header = () => {
@@ -22,7 +22,7 @@ export const Header = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 0) {
+            if (window.scrollY > 50) {
                 setIsScrolled(true);
             } else {
                 setIsScrolled(false);
@@ -38,9 +38,9 @@ export const Header = () => {
 
     return (
         <div className="relative">
-            <header className={`fixed left-0 right-0 z-10 mx-auto text-[#333333] w-full transition-all duration-200 ${isScrolled ? "top-0" : "top-5"}`}>
+            <header className={`fixed left-0 right-0 z-10 mx-10 text-[#333333] transition-all duration-50 ${isScrolled ? "top-0" : "top-5"}`}>
                 <div
-                    className={`bg-white max-w-330 mx-auto flex justify-between items-center py-3 px-7 rounded-2xl transition-all duration-200 ${
+                    className={`bg-white max-w-330 mx-auto flex justify-between items-center py-3 px-7 rounded-2xl transition-all duration-50 ${
                         isScrolled ? "shadow-md mt-0" : "mt-5"
                     }`}
                 >
