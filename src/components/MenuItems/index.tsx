@@ -1,11 +1,49 @@
-const menus = [
+import { Link } from "@tanstack/react-router";
+
+interface MenuItem {
+    label: string;
+    to: string;
+    params?: Record<string, string>;
+}
+
+interface MenuSection {
+    title: string;
+    items: MenuItem[];
+}
+
+const menus: MenuSection[] = [
     {
         title: "Masculino",
-        items: ["Casual", "Esporte", "Moderno", "Futurista"],
+        items: [
+            { label: "Casual", to: "/products/category/$category", params: { category: "Casual" } },
+            { label: "Esporte", to: "/products/category/$category", params: { category: "Esporte" } },
+            { label: "Moderno", to: "/products/category/$category", params: { category: "Moderno" } },
+            { label: "Futurista", to: "/products/category/$category", params: { category: "Futurista" } },
+        ],
     },
-    { title: "Feminino", items: ["Casual", "Esporte", "Moderno", "Futurista"] },
-    { title: "Outlet", items: ["Masculino", "Feminino"] },
-    { title: "Sobre", items: ["Quem Somos", "Missão"] },
+    {
+        title: "Feminino",
+        items: [
+            { label: "Casual", to: "/products/category/$category", params: { category: "Casual" } },
+            { label: "Esporte", to: "/products/category/$category", params: { category: "Esporte" } },
+            { label: "Moderno", to: "/products/category/$category", params: { category: "Moderno" } },
+            { label: "Futurista", to: "/products/category/$category", params: { category: "Futurista" } },
+        ],
+    },
+    {
+        title: "Outlet",
+        items: [
+            { label: "Masculino", to: "/products/category/$category", params: { category: "Masculino" } },
+            { label: "Feminino", to: "/products/category/$category", params: { category: "Feminino" } },
+        ],
+    },
+    {
+        title: "Sobre",
+        items: [
+            { label: "Quem Somos", to: "/about" },
+            { label: "Nossas Lojas", to: "/our-stores" },
+        ],
+    },
 ];
 
 export const MenuItems = () => {
@@ -20,13 +58,14 @@ export const MenuItems = () => {
                             </p>
                         </li>
                         {items.map((item) => (
-                            <li key={item}>
-                                <a
-                                    href="#"
+                            <li key={item.label}>
+                                <Link
+                                    to={item.to as any}
+                                    params={item.params as any}
                                     className="font-medium hover:text-text-tertiary transition-colors text-xl"
                                 >
-                                    {item}
-                                </a>
+                                    {item.label}
+                                </Link>
                             </li>
                         ))}
                     </ul>
