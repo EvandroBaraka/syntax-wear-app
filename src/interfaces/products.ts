@@ -1,11 +1,12 @@
-import type { Category } from "./category";
-
 export interface Product {
     id: number;
     name: string;
-    image: string;
     price: number;
-    color: string;
+    images: string[];
+    colors: string[];
+    categoryId: number;
+    slug: string;
+    stock: number;
+    active: boolean;
     description: string;
-    category: Category
 }
