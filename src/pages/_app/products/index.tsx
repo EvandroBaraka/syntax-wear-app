@@ -25,8 +25,6 @@ function RouteComponent() {
 
         setLoading(true);
 
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-
         try {
             const response = await getProducts({ page });
 
