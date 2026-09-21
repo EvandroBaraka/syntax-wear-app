@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { MdAddShoppingCart } from "react-icons/md";
 import type { Product } from "../../interfaces/products";
 import { useContext } from "react";
-import { CartContext } from "../../contexts/CartContext";
+import { CartContext } from "../../contexts/CartContext/CartContext";
 import { formatCurrency } from "../../utils/format-currency";
 
 interface ProductCardProps {
