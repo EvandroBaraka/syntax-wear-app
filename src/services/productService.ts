@@ -39,6 +39,14 @@ export async function getProducts({ page, limit = DEFAULT_LIMIT }: GetProductsPa
     }
 };
 
+export async function getProductById(productId: number): Promise<Product> {
+    const response = await fetch(`${API_BASE_URL}/products/${productId}`);
+    if (!response.ok) {
+        throw new Error(`Erro ao buscar produto por ID: ${response.statusText}`);
+    }
+    return await response.json();
+};
+
 export async function getProductByCategoryId(categoryId: number, paginationParams?: GetProductsParams): Promise<ProductResponse> {
     const params = new URLSearchParams({
         page: paginationParams?.page?.toString() || '1',

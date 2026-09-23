@@ -2,15 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { products } from "../../../mocks/products";
 import { formatCurrency } from "../../../utils/format-currency";
 import { useContext } from "react";
-import { CartContext } from "../../../contexts/CartContext";
+import { CartContext } from "../../../contexts/CartContext/CartContext";
 import { CEPForm } from "../../../components/CEPForm";
+import { getProductById } from "../../../services/productService";
 
 export const Route = createFileRoute("/_app/products/$productId")({
     component: RouteComponent,
-    head: ({ params }) => {
-        const filteredProduct = products.find(
-            (product) => product.id === Number(params.productId),
-        );
+    head: async ({ params }) => {
+        const filteredProduct = await getProductById(Number(params.productId));
 
         const title = filteredProduct
             ? `${filteredProduct.name} - Produtos - SyntaxWear`

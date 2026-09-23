@@ -27,11 +27,10 @@ export type RegisterInput = Credentials & {
 interface AuthContextType {
 	user: User | null;
 	isAuthenticated: boolean;
-    // loading: boolean;
-    // error: string | null;
 	login: (credentials: Credentials) => Promise<void>;
     register: (data: RegisterInput) => Promise<void>;
-	logout: () => void;
+	logout: () => Promise<void>;
+    loginWithGoogle: (credential: string) => Promise<void>;
 }
 
 export const AuthContext = createContext({} as AuthContextType);

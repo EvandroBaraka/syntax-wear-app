@@ -28,8 +28,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
                 const data = await response.json();
 
-                console.log("Response data:", data);
-                
                 setUser(data.user);
                 setIsAuthenticated(true);
 
@@ -82,9 +80,38 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     }
 
-    function logout(): void {
-        setUser(null);
-        setIsAuthenticated(false);
+    async function logout(): Promise<void> {
+        try {
+            await fetch("http://localhost:3000/auth/logout", {
+                method: "POST",
+                credentials: "include",
+            });
+
+            setUser(null);
+            setIsAuthenticated(false);
+        } catch (error) {
+            console.error("Erro ao fazer logout:", error);
+        } 
+    }
+
+    async function loginWithGoogle(credentials: string): Promise<void> {
+        const response = await fetch("http://localhost:3000/auth/google", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ credentials }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.user) {
+            throw new Error(data.message || "Erro ao fazer login com o Google");
+        }
+
+        setUser(data.user);
+        setIsAuthenticated(true);
     }
 
     const value = {
@@ -93,6 +120,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         login,
         register,
         logout,
+        loginWithGoogle,
     };
 
     return (

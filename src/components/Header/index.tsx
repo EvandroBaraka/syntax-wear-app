@@ -5,6 +5,8 @@ import { MenuMobile } from "../MenuMobile";
 import { useState, useEffect } from "react";
 import { CartButton } from "../CartButton";
 import { CartDrawer } from "../CartDrawer";
+import { useAuth } from "../../contexts/AuthContext/AuthContext";
+import { PiSignOutLight } from "react-icons/pi";
 
 export interface NavLink {
     name: string;
@@ -20,6 +22,15 @@ const navLinks: NavLink[] = [
 export const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [cartIsOpen, setCartIsOpen] = useState<boolean>(false);
+    const { isAuthenticated, logout } = useAuth();
+
+    const handleSignOut = async () => {
+        try {
+            await logout();
+        } catch (error) {
+            console.error("Erro ao fazer logout:", error);
+        }
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -77,12 +88,22 @@ export const Header = () => {
                                 <MenuMobile navLink={navLinks} />
                             </li>
                             <li className="hidden lg:block">
-                                <Link to="/sign-in">
-                                    <img
-                                        src={IconUser}
-                                        alt="ícone de Usuário"
-                                    />
-                                </Link>
+                                {isAuthenticated ? (
+                                    <button
+                                        onClick={handleSignOut}
+                                        className="cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+                                    >
+                                        Sair
+                                        <PiSignOutLight className="h-6 w-6" />
+                                    </button>
+                                ) : (
+                                    <Link to="/sign-in">
+                                        <img
+                                            src={IconUser}
+                                            alt="ícone de Usuário"
+                                        />
+                                    </Link>
+                                )}
                             </li>
                             <li>
                                 {/* <ShoppingCart /> */}
