@@ -28,7 +28,7 @@ interface AuthContextType {
 	user: User | null;
 	isAuthenticated: boolean;
 	login: (credentials: Credentials) => Promise<void>;
-    register: (data: RegisterInput) => Promise<void>;
+    registerNewUser: (data: RegisterInput) => Promise<void>;
 	logout: () => Promise<void>;
     loginWithGoogle: (credential: string) => Promise<void>;
 }

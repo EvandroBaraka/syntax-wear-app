@@ -1,11 +1,39 @@
-import { useRegisterForm } from "./register-form.schema"
+import { useNavigate } from "@tanstack/react-router";
+import { useAuth } from "../../contexts/AuthContext/AuthContext";
+import { useRegisterForm, type RegisterFormData } from "./register-form.schema"
+import { useState } from "react";
 
 export const RegisterForm = () => {
 
-    const { register, errors, isSubmitting } = useRegisterForm();
+    const [error, setError] = useState<string | null>(null);
+    const { register, errors, isSubmitting, handleSubmit } = useRegisterForm();
+    const { registerNewUser } = useAuth();
+    const navigate = useNavigate();
+    
+    const handleRegisterUser = async (data: RegisterFormData) => {
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { confirmPassword, ...dataWithoutConfirmPassword } = data;
+        setError(null);
+
+        try {
+            await registerNewUser(dataWithoutConfirmPassword);
+            navigate({ to: "/" });
+        } catch (error) {
+            const err = error as Error;
+
+            if (err instanceof Error) {
+                console.error("Erro ao registrar usuário:", err.message);
+                setError(err.message);
+            } else {
+                console.error("Erro ao registrar usuário:");
+                setError("Ocorreu um erro desconhecido ao registrar o usuário.");
+            }
+        }
+    };
 
     return (
-        <form className="text-black">
+        <form className="text-black" onSubmit={handleSubmit(handleRegisterUser)}>
             {/* Campo de email */}
             <div>
                 <label className="text-xs text-gray-600">E-mail*</label>
@@ -74,6 +102,12 @@ export const RegisterForm = () => {
             <button disabled={isSubmitting} type="submit" className="w-full bg-accent text-white font-semibold uppercase py-3 rounded-md transition-all hover:bg-accent-hover disabled:opacity-50 cursor-pointer mt-4">
                 {isSubmitting ? "Enviando..." : "Continuar"}
             </button>
+
+            {error && (
+                <p className="text-red-500 text-sm text-center mt-4">
+                    {error}
+                </p>
+            )}
         </form>
     )
 }

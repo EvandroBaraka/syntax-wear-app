@@ -74,11 +74,6 @@ export const LoginForm = () => {
                 </span>
             )}
 
-            {error && (
-                <span className="text-red-500 text-sm text-center">
-                    {error}
-                </span>
-            )}
             <button
                 className="bg-[#212A2F] w-full p-3.5 rounded-[1px] cursor-pointer text-white disabled:opacity-60
                 disabled:cursor-not-allowed"
@@ -87,6 +82,12 @@ export const LoginForm = () => {
             >
                 {isSubmitting ? "Processando..." : "Continuar"}
             </button>
+
+            {error && (
+                <p className="text-red-500 text-sm text-center mt-4">
+                    {error}
+                </p>
+            )}
         </form>
     );
 };

@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setIsAuthenticated(true);
     }
 
-    async function register(registerData: RegisterInput): Promise<void> {
+    async function registerNewUser(registerData: RegisterInput): Promise<void> {
         const response = await fetch("http://localhost:3000/auth/register", {
             method: "POST",
             credentials: "include",
@@ -78,6 +78,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             throw new Error(userData.message || "Erro ao se cadastrar");
         }
 
+        setUser(userData.user);
+        setIsAuthenticated(true);
     }
 
     async function logout(): Promise<void> {
@@ -118,7 +120,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         user,
         isAuthenticated,
         login,
-        register,
+        registerNewUser,
         logout,
         loginWithGoogle,
     };
