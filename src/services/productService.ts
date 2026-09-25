@@ -1,3 +1,4 @@
+import { notFound } from '@tanstack/react-router';
 import type { Product } from '../interfaces/products';
 
 const API_BASE_URL = 'http://localhost:3000';
@@ -39,10 +40,10 @@ export async function getProducts({ page, limit = DEFAULT_LIMIT }: GetProductsPa
     }
 };
 
-export async function getProductById(productId: number): Promise<Product> {
+export async function getProductById(productId: number): Promise<Product | null> {
     const response = await fetch(`${API_BASE_URL}/products/${productId}`);
     if (!response.ok) {
-        throw new Error(`Erro ao buscar produto por ID: ${response.statusText}`);
+        throw notFound();
     }
     return await response.json();
 };
