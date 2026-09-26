@@ -36,7 +36,6 @@ function RouteComponent() {
                 setPage((prev) => prev + 1);
             }
 
-            console.log("loadMoreProducts response:", response);
         } catch (error) {
             console.error("Erro ao buscar produtos:", error);
             setHasMore(false);

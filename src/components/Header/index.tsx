@@ -97,7 +97,7 @@ export const Header = () => {
                                         <PiSignOutLight className="h-6 w-6" />
                                     </button>
                                 ) : (
-                                    <Link to="/sign-in">
+                                    <Link to="/sign-in" title="Entrar">
                                         <img
                                             src={IconUser}
                                             alt="ícone de Usuário"
@@ -105,7 +105,7 @@ export const Header = () => {
                                     </Link>
                                 )}
                             </li>
-                            <li>
+                            <li title="Carrinho de Compras">
                                 {/* <ShoppingCart /> */}
                                 <CartButton
                                     onClick={() => setCartIsOpen(true)}

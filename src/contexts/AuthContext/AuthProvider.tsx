@@ -10,6 +10,8 @@ interface AuthProviderProps {
     children: React.ReactNode;
 }
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -17,11 +19,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const response = await fetch("http://localhost:3000/auth/profile", {
-                    method: "GET",
-                    credentials: "include", // faz com que o cookie seja enviado junto com a requisição
-                });
-                
+                const response = await fetch(
+                    `${API_BASE_URL}/auth/profile`,
+                    {
+                        method: "GET",
+                        credentials: "include", // faz com que o cookie seja enviado junto com a requisição
+                    },
+                );
+
                 if (!response.ok) {
                     throw new Error("Erro ao buscar perfil do usuário");
                 }
@@ -30,20 +35,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
                 setUser(data.user);
                 setIsAuthenticated(true);
-
             } catch (error) {
                 console.error("Erro ao buscar perfil do usuário:", error);
                 setUser(null);
                 setIsAuthenticated(false);
             }
-
-        }
+        };
 
         fetchUserProfile();
     }, []);
 
     async function login(credentials: Credentials): Promise<void> {
-        const response = await fetch("http://localhost:3000/auth/login", {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: "POST",
             credentials: "include", // faz com que o cookie seja enviado junto com a requisição
             headers: {
@@ -63,7 +66,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     async function registerNewUser(registerData: RegisterInput): Promise<void> {
-        const response = await fetch("http://localhost:3000/auth/register", {
+        const response = await fetch(`${API_BASE_URL}/auth/register`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -84,7 +87,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     async function logout(): Promise<void> {
         try {
-            await fetch("http://localhost:3000/auth/logout", {
+            await fetch(`${API_BASE_URL}/auth/logout`, {
                 method: "POST",
                 credentials: "include",
             });
@@ -93,11 +96,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             setIsAuthenticated(false);
         } catch (error) {
             console.error("Erro ao fazer logout:", error);
-        } 
+        }
     }
 
     async function loginWithGoogle(credentials: string): Promise<void> {
-        const response = await fetch("http://localhost:3000/auth/google", {
+        const response = await fetch(`${API_BASE_URL}/auth/google`, {
             method: "POST",
             credentials: "include",
             headers: {

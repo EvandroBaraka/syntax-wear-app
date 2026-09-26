@@ -1,7 +1,7 @@
 import { notFound } from '@tanstack/react-router';
 import type { Product } from '../interfaces/products';
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 const DEFAULT_LIMIT = 3;
 
 interface GetProductsParams {
