@@ -99,7 +99,7 @@ function CheckoutPage() {
 
     const [address, setAddress] = useState<Address | null>(null);
     const [isSearching, setIsSearching] = useState(false);
-    const { cart } = useContext(CartContext);
+    const { cart, clearCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
 
     const cepValue = watch("cep");
@@ -162,12 +162,11 @@ function CheckoutPage() {
             user?.id,
         );
 
-
-
         const stripe = await loadStripe(stripePublicKey);
-
+        
         stripe?.redirectToCheckout({ sessionId });
-
+        
+        clearCart();
     };
 
     return (
@@ -229,7 +228,7 @@ function CheckoutPage() {
                                 <div>
                                     <div className="flex items-center gap-2">
                                         <input
-                                            type="text"
+                                            type="number"
                                             placeholder="CEP"
                                             className="h-11.5 w-full rounded border border-[#D1D5DC] px-2 text-base text-black placeholder:text-black/50 bg-white"
                                             {...register("cep")}
@@ -283,7 +282,7 @@ function CheckoutPage() {
                                         </label>
                                         <input
                                             id="number"
-                                            type="text"
+                                            type="number"
                                             placeholder="Número"
                                             className="h-11.5 w-full rounded border border-[#D1D5DC] px-2 text-base text-black placeholder:text-black/50 bg-white"
                                             {...register("number")}

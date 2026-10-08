@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../contexts/CartContext/CartContext";
 import { formatCurrency } from "../../utils/format-currency";
+import { useNavigate } from "@tanstack/react-router";
 
 interface CartDrawerProps {
     isOpen: boolean;
@@ -10,6 +11,12 @@ interface CartDrawerProps {
 export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
     const { cart, removeFromCart, incrementInCart, decrementInCart } =
         useContext(CartContext);
+    const navigate = useNavigate();
+    const [hasItemsInCart, setHasItemsInCart] = useState(false);
+
+    useEffect(() => {
+        setHasItemsInCart(cart.length > 0);
+    }, [cart]);
 
     return (
         <>
@@ -96,7 +103,11 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                     </ul>
 
                     <footer className="absolute bottom-0 w-full h-25 p-4">
-                        <button className="w-full h-full bg-black text-white rounded-xs cursor-pointer hover:bg-gray-800">
+                        <button 
+                            className="w-full h-full bg-black text-white rounded-xs cursor-pointer hover:bg-gray-800 *:transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                            onClick={() => navigate({to:"/checkout"})}
+                            disabled={!hasItemsInCart}
+                            >
                             Fechar pedido
                         </button>
                     </footer>
